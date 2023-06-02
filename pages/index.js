@@ -19,7 +19,7 @@ export default function Home({allPostsData}) {
             </Head>
             <section className={utilStyles.headingMd}>
                 <p>
-                    I’m a full-stack web developer (with a focus on front 💕) who’s
+                    Hey! I’m a full-stack web developer (with a focus on front 💕) who’s
                     working with the latest and most effective technologies. The main
                     stack of technologies I specialize in is JavaScript plus
                     frameworks/libraries based on this language.

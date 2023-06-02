@@ -1,22 +1,19 @@
 import '../styles/global.css';
 import { AppProps } from 'next/app';
-import { useState } from 'react';
 import { ThemeProvider } from 'styled-components';
+import useDarkMode from 'use-dark-mode';
 import { GlobalStyles } from '../styles/Global';
 import { darkTheme, lightTheme } from '../styles/Theme';
 import { Toggle } from '../components/toggler';
 
 export default function App({ Component, pageProps } : AppProps) {
-  const [theme, setTheme] = useState('light');
-  const toggleTheme = () => {
-    // eslint-disable-next-line no-unused-expressions
-    theme === 'light' ? setTheme('dark') : setTheme('light');
-  };
+  const darkmode = useDarkMode(false);
+  const theme = darkmode.value ? darkTheme : lightTheme;
 
   return (
-    <ThemeProvider theme={theme === 'light' ? lightTheme : darkTheme}>
+    <ThemeProvider theme={theme}>
       <GlobalStyles />
-      <Toggle theme={theme} toggleTheme={toggleTheme} />
+      <Toggle theme={darkmode.value ? 'dark' : 'light'} toggleTheme={darkmode.toggle} />
       <Component {...pageProps} />
     </ThemeProvider>
   );

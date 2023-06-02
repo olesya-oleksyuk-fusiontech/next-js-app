@@ -10,7 +10,13 @@ export async function getStaticProps() {
   return { props: { allPostsData } };
 }
 
-export default function Home({ allPostsData }) {
+export default function Home({ allPostsData } : {
+    allPostsData: {
+        date: string
+        title: string
+        id: string
+    }[]
+}) {
   return (
   // eslint-disable-next-line react/jsx-filename-extension
     <Layout home>

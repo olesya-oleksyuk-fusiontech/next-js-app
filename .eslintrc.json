@@ -1,12 +1,12 @@
 {
   "extends": [
     "plugin:@next/next/recommended",
-    "plugin:@typescript-eslint/recommended",
-    "airbnb"
+    "airbnb",
+    "plugin:@typescript-eslint/recommended"
   ],
   "rules": {
-    "react/forbid-prop-types": 2,
     "react/prop-types": 0,
+    "react/require-default-props": 0,
     "eol-last": [
       "error",
       "always"

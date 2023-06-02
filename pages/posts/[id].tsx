@@ -1,23 +1,29 @@
 import Head from 'next/head';
-import Layout from '../../components/layout';
+import { GetStaticPaths, GetStaticProps } from 'next';
 import Date from '../../components/date';
 import { getAllPostIds, getPostData } from '../../lib/posts';
 import utilStyles from '../../styles/utils.module.css';
+import Layout from '../../components/layout';
 
-export async function getStaticPaths() {
+export const getStaticPaths: GetStaticPaths = async () => {
   const paths = getAllPostIds();
   return {
     paths,
     fallback: false
   };
-}
+};
 
-export async function getStaticProps({ params }) {
-  const postData = await getPostData(params.id);
+export const getStaticProps: GetStaticProps = async ({ params }) => {
+  const postData = await getPostData(params?.id as string);
   return { props: { postData } };
+};
+export interface PostProps {
+    title: string
+    date: string
+    contentHtml: string
 }
 
-export default function Post({ postData }) {
+export default function Post({ postData } : { postData: PostProps}) {
   return (
     <Layout>
       <Head>
@@ -28,6 +34,7 @@ export default function Post({ postData }) {
         <div className={utilStyles.lightText}>
           <Date dateString={postData.date} />
         </div>
+        {/* eslint-disable-next-line react/no-danger */}
         <div dangerouslySetInnerHTML={{ __html: postData.contentHtml }} />
       </article>
     </Layout>

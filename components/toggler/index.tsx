@@ -17,10 +17,10 @@ const Button = styled.button`
   outline: none;
 `;
 
-export function ThemeToggler({ theme, onToggle }: { theme: string, onToggle: () => void }) {
+export function ThemeToggler({ currTheme, onToggle }: { currTheme: string, onToggle: () => void }) {
   return (
     <Button onClick={onToggle}>
-      {theme === 'light' ? <Moon /> : <Sun />}
+      {currTheme === 'light' ? <Moon /> : <Sun />}
     </Button>
   );
 }

@@ -1,5 +1,6 @@
 import { AppProps } from 'next/app';
-import { ThemeProvider } from 'styled-components';
+import { DefaultTheme, ThemeProvider } from 'styled-components';
+import { useMemo } from 'react';
 import { GlobalStyles } from '../styles/Global';
 import {
   commonTheme, darkTheme, lightTheme
@@ -8,16 +9,19 @@ import { ThemeToggler } from '../components/toggler';
 import { useDarkMode } from '../hooks/useDarkMode';
 
 export default function App({ Component, pageProps } : AppProps) {
-  const [theme, toggleTheme, isMounted] = useDarkMode();
-  const themeMode = theme === 'light' ? lightTheme : darkTheme;
+  const [currTheme, toggleTheme, isMounted] = useDarkMode();
+  const theme: DefaultTheme = useMemo(() => {
+    const themeMode = currTheme === 'light' ? lightTheme : darkTheme;
+    return { ...themeMode, ...commonTheme };
+  }, [currTheme, isMounted]);
 
   return (
-    <ThemeProvider theme={{ ...themeMode, ...commonTheme }}>
+    <ThemeProvider theme={theme}>
       <GlobalStyles />
       { isMounted
             && (
             <>
-              <ThemeToggler theme={theme} onToggle={toggleTheme} />
+              <ThemeToggler currTheme={currTheme} onToggle={toggleTheme} />
               <Component {...pageProps} />
             </>
             )}

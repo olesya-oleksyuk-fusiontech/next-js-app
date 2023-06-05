@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react';
 export type Theme = 'dark' | 'light'
 
 export const useDarkMode = () => {
-  const [theme, setTheme] = useState<Theme>('light');
+  const [currTheme, setTheme] = useState<Theme>('light');
   // use isMounted to determine when the app has mounted and display it only when isMounted is true.
   // This way removed the brief flicker (due to Next.js SSR rendering)
   // https://blog.logrocket.com/theming-in-next-js-with-styled-components-and-usedarkmode/
@@ -16,7 +16,7 @@ export const useDarkMode = () => {
   };
 
   const toggleTheme = () => {
-    theme === 'light' ? setMode('dark') : setMode('light');
+    currTheme === 'light' ? setMode('dark') : setMode('light');
   };
 
   useEffect(() => {
@@ -45,5 +45,5 @@ export const useDarkMode = () => {
     };
   }, []);
 
-  return [theme, toggleTheme, isMounted] as const;
+  return [currTheme, toggleTheme, isMounted] as const;
 };

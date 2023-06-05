@@ -1,31 +1,51 @@
 import Head from 'next/head';
 import Link from 'next/link';
-import Date from '../components/date';
+import styled from 'styled-components';
 import Layout, { siteTitle } from '../components/layout';
-import utilStyles from '../styles/utils.module.css';
 import { getSortedPostsData } from '../lib/posts';
+import Heading from '../components/atoms/heading';
+import DateNote from '../components/atoms/dateNote';
 
 export async function getStaticProps() {
   const allPostsData = getSortedPostsData();
   return { props: { allPostsData } };
 }
 
-export default function Home({ allPostsData } : {
+const AboutMe = styled.section`
+  font-size: ${({ theme }) => theme.fontSize.md};
+  line-height: 1.5;
+`;
+
+const Blogs = styled(AboutMe)`
+  padding-top: 1px;
+`;
+
+const BlogList = styled.ul`
+    list-style: none;
+    padding: 0;
+    margin: 0;
+`;
+
+const Blog = styled.li`
+  margin: 0 0 1.25rem;
+`;
+
+interface HomeProps {
     allPostsData: {
         date: string
         title: string
         id: string
     }[]
-}) {
+}
+export default function Home({ allPostsData } : HomeProps) {
   return (
-  // eslint-disable-next-line react/jsx-filename-extension
     <Layout home>
       <Head>
         <title>{siteTitle}</title>
       </Head>
-      <section className={utilStyles.headingMd}>
+      <AboutMe>
         <p>
-          I’m a full-stack web developer (with a focus on front 💕) who’s
+          I’m a full-stack web developer (with a focus on front ❣️) who’s
           working with the latest and most effective technologies. The main
           stack of technologies I specialize in is JavaScript plus
           frameworks/libraries based on this language.
@@ -36,25 +56,23 @@ export default function Home({ allPostsData } : {
           <a href="https://nextjs.org/learn">our Next.js tutorial</a>
           .)
         </p>
-      </section>
-      <section className={`${utilStyles.headingMd} ${utilStyles.padding1px}`}>
-        <h2 className={utilStyles.headingLg}>Blog</h2>
-        <ul className={utilStyles.list}>
+      </AboutMe>
+      <Blogs>
+        <Heading size="lg">Blog</Heading>
+        <BlogList>
           {allPostsData.map(({
             id,
             date,
             title
           }) => (
-            <li className={utilStyles.listItem} key={id}>
+            <Blog key={id}>
               <Link href={`/posts/${id}`}>{title}</Link>
               <br />
-              <small className={utilStyles.lightText}>
-                <Date dateString={date} />
-              </small>
-            </li>
+              <DateNote dateString={date} />
+            </Blog>
           ))}
-        </ul>
-      </section>
+        </BlogList>
+      </Blogs>
     </Layout>
   );
 }

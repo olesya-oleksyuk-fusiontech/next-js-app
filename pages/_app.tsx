@@ -1,8 +1,9 @@
-import '../styles/global.css';
 import { AppProps } from 'next/app';
 import { ThemeProvider } from 'styled-components';
 import { GlobalStyles } from '../styles/Global';
-import { darkTheme, lightTheme } from '../styles/Theme';
+import {
+  commonTheme, darkTheme, lightTheme
+} from '../styles/Theme';
 import { ThemeToggler } from '../components/toggler';
 import { useDarkMode } from '../hooks/useDarkMode';
 
@@ -11,7 +12,7 @@ export default function App({ Component, pageProps } : AppProps) {
   const themeMode = theme === 'light' ? lightTheme : darkTheme;
 
   return (
-    <ThemeProvider theme={themeMode}>
+    <ThemeProvider theme={{ ...themeMode, ...commonTheme }}>
       <GlobalStyles />
       { isMounted
             && (

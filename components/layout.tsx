@@ -1,19 +1,39 @@
 import Head from 'next/head';
-import Image from 'next/image';
 import Link from 'next/link';
 import React from 'react';
-import styles from './layout.module.css';
-import utilStyles from '../styles/utils.module.css';
+import styled from 'styled-components';
+import Heading from './atoms/heading';
+import Avatar from './avatar';
 
 const name = 'Olesia Oleksiuk';
 export const siteTitle = 'Next.js Sample Website';
+
+const Container = styled.div`
+  max-width: 36rem;
+  padding: 0 1rem;
+  margin: 3rem auto 6rem;
+`;
+
+const Header = styled.header`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+`;
+
+const BackToHome = styled.div`
+  margin: 3rem 0 0;
+`;
+
+const HeadingLink = styled(Link)`
+  color: inherit;
+`;
 
 export default function Layout({ children, home }: {
     children: React.ReactNode
     home?: boolean
 }) {
   return (
-    <div className={styles.container}>
+    <Container>
       <Head>
         <link rel="icon" href="/favicon.ico" />
         <meta
@@ -29,45 +49,31 @@ export default function Layout({ children, home }: {
         <meta name="og:title" content={siteTitle} />
         <meta name="twitter:card" content="summary_large_image" />
       </Head>
-      <header className={styles.header}>
+      <Header>
         {home ? (
           <>
-            <Image
-              priority
-              src="/images/profile.jpg"
-              className={utilStyles.borderCircle}
-              height={144}
-              width={144}
-              alt=""
-            />
-            <h1 className={utilStyles.heading2Xl}>{name}</h1>
+            <Avatar onHome />
+            <Heading size="2xl">{name}</Heading>
           </>
         ) : (
           <>
             <Link href="/">
-              <Image
-                priority
-                src="/images/profile.jpg"
-                className={utilStyles.borderCircle}
-                height={108}
-                width={108}
-                alt=""
-              />
+              <Avatar />
             </Link>
-            <h2 className={utilStyles.headingLg}>
-              <Link href="/" className={utilStyles.colorInherit}>
+            <Heading size="lg">
+              <HeadingLink href="/">
                 {name}
-              </Link>
-            </h2>
+              </HeadingLink>
+            </Heading>
           </>
         )}
-      </header>
+      </Header>
       <main>{children}</main>
       {!home && (
-        <div className={styles.backToHome}>
+        <BackToHome>
           <Link href="/">← Back to home</Link>
-        </div>
+        </BackToHome>
       )}
-    </div>
+    </Container>
   );
 }

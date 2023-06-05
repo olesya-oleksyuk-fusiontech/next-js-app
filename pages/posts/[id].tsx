@@ -1,9 +1,9 @@
 import Head from 'next/head';
 import { GetStaticPaths, GetStaticProps } from 'next';
-import Date from '../../components/date';
 import { getAllPostIds, getPostData } from '../../lib/posts';
-import utilStyles from '../../styles/utils.module.css';
 import Layout from '../../components/layout';
+import Heading from '../../components/atoms/heading';
+import DateNote from '../../components/atoms/dateNote';
 
 export const getStaticPaths: GetStaticPaths = async () => {
   const paths = getAllPostIds();
@@ -18,22 +18,22 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
   return { props: { postData } };
 };
 export interface PostProps {
-    title: string
-    date: string
-    contentHtml: string
+    postData: {
+        title: string
+        date: string
+        contentHtml: string
+    }
 }
 
-export default function Post({ postData } : { postData: PostProps}) {
+export default function Post({ postData } : PostProps) {
   return (
     <Layout>
       <Head>
         <title>{postData.title}</title>
       </Head>
       <article>
-        <h1 className={utilStyles.headingXl}>{postData.title}</h1>
-        <div className={utilStyles.lightText}>
-          <Date dateString={postData.date} />
-        </div>
+        <Heading size="xl">{postData.title}</Heading>
+        <DateNote dateString={postData.date} />
         {/* eslint-disable-next-line react/no-danger */}
         <div dangerouslySetInnerHTML={{ __html: postData.contentHtml }} />
       </article>

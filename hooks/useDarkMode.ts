@@ -16,6 +16,14 @@ export const useDarkMode = () => {
   };
 
   useEffect(() => {
+    function handleDarkModePreferredChange() {
+      window.matchMedia('(prefers-color-scheme: dark)').matches ? setTheme('dark') : setTheme('light');
+    }
+
+    //  register an event-listener to detect user's prefers-color-scheme change
+    window.matchMedia('(prefers-color-scheme: dark)')
+      .addEventListener('change', handleDarkModePreferredChange);
+
     const localTheme = window.localStorage.getItem('theme') as Theme | null;
     const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
 
@@ -28,6 +36,11 @@ export const useDarkMode = () => {
     }
 
     setIsMounted(true);
+    // good housekeeping to remove listener
+    return () => {
+      window.matchMedia('(prefers-color-scheme: dark)')
+        .removeEventListener('change', handleDarkModePreferredChange);
+    };
   }, []);
 
   return [theme, toggleTheme, isMounted] as const;

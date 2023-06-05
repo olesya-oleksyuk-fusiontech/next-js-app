@@ -4,8 +4,12 @@ export type Theme = 'dark' | 'light'
 
 export const useDarkMode = () => {
   const [theme, setTheme] = useState<Theme>('light');
+  // use isMounted to determine when the app has mounted and display it only when isMounted is true.
+  // This way removed the brief flicker (due to Next.js SSR rendering)
+  // https://blog.logrocket.com/theming-in-next-js-with-styled-components-and-usedarkmode/
   const [isMounted, setIsMounted] = useState(false);
 
+  // use localStorage to persist a preferred theme between sessions in the browser
   const setMode = (mode: Theme) => {
     window.localStorage.setItem('theme', mode);
     setTheme(mode);
@@ -31,8 +35,6 @@ export const useDarkMode = () => {
       setMode(localTheme);
     } else if (prefersDark) {
       setTheme('dark');
-    } else {
-      setMode('light');
     }
 
     setIsMounted(true);

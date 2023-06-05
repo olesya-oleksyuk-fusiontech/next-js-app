@@ -3,7 +3,7 @@ import { AppProps } from 'next/app';
 import { ThemeProvider } from 'styled-components';
 import { GlobalStyles } from '../styles/Global';
 import { darkTheme, lightTheme } from '../styles/Theme';
-import { Toggle } from '../components/toggler';
+import { ThemeToggler } from '../components/toggler';
 import { useDarkMode } from '../hooks/useDarkMode';
 
 export default function App({ Component, pageProps } : AppProps) {
@@ -16,7 +16,7 @@ export default function App({ Component, pageProps } : AppProps) {
       { isMounted
             && (
             <>
-              <Toggle theme={theme} toggleTheme={toggleTheme} />
+              <ThemeToggler theme={theme} onToggle={toggleTheme} />
               <Component {...pageProps} />
             </>
             )}

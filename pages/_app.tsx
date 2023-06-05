@@ -1,26 +1,17 @@
 import '../styles/global.css';
 import { AppProps } from 'next/app';
-import { useEffect, useState } from 'react';
 import { ThemeProvider } from 'styled-components';
 import { GlobalStyles } from '../styles/Global';
 import { darkTheme, lightTheme } from '../styles/Theme';
 import { Toggle } from '../components/toggler';
+import { useDarkMode } from '../hooks/useDarkMode';
 
 export default function App({ Component, pageProps } : AppProps) {
-  const [isMounted, setIsMounted] = useState(false);
-
-  useEffect(() => {
-    setIsMounted(true);
-  }, []);
-
-  const [theme, setTheme] = useState('light');
-  const toggleTheme = () => {
-    // eslint-disable-next-line no-unused-expressions
-    theme === 'light' ? setTheme('dark') : setTheme('light');
-  };
+  const [theme, toggleTheme, isMounted] = useDarkMode();
+  const themeMode = theme === 'light' ? lightTheme : darkTheme;
 
   return (
-    <ThemeProvider theme={theme === 'light' ? lightTheme : darkTheme}>
+    <ThemeProvider theme={themeMode}>
       <GlobalStyles />
       { isMounted
             && (

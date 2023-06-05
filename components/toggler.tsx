@@ -13,8 +13,6 @@ const Button = styled.button`
   width: 8rem;
   height: 4rem;
   outline: none;
-  }
-
 `;
 
 const Sun = styled.svg`

@@ -2,8 +2,8 @@ import Head from 'next/head';
 import { GetStaticPaths, GetStaticProps } from 'next';
 import { getAllPostIds, getPostData } from '../../lib/posts';
 import Layout from '../../components/layout';
-import Heading from '../../components/atoms/heading';
-import DateNote from '../../components/atoms/dateNote';
+import Heading from '../../atoms/heading';
+import DateNote from '../../atoms/dateNote';
 
 export const getStaticPaths: GetStaticPaths = async () => {
   const paths = getAllPostIds();

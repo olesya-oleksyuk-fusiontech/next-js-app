@@ -2,8 +2,9 @@ import Head from 'next/head';
 import Link from 'next/link';
 import React from 'react';
 import styled from 'styled-components';
-import Heading from './atoms/heading';
-import Avatar from './avatar';
+import Heading from '../../atoms/heading';
+import Avatar from '../avatar';
+import LinkCustom from '../../atoms/link';
 
 const name = 'Olesia Oleksiuk';
 export const siteTitle = 'Next.js Sample Website';
@@ -22,13 +23,17 @@ const Header = styled.header`
 
 const BackToHome = styled.div`
   margin: 3rem 0 0;
+  
+  a {
+    color: ${({ theme }) => theme.link};
+  }
 `;
 
 const HeadingLink = styled(Link)`
   color: inherit;
 `;
 
-export default function Layout({ children, home }: {
+function Layout({ children, home }: {
     children: React.ReactNode
     home?: boolean
 }) {
@@ -57,9 +62,9 @@ export default function Layout({ children, home }: {
           </>
         ) : (
           <>
-            <Link href="/">
+            <LinkCustom href="/">
               <Avatar />
-            </Link>
+            </LinkCustom>
             <Heading size="lg">
               <HeadingLink href="/">
                 {name}
@@ -70,10 +75,12 @@ export default function Layout({ children, home }: {
       </Header>
       <main>{children}</main>
       {!home && (
-        <BackToHome>
-          <Link href="/">← Back to home</Link>
-        </BackToHome>
+      <BackToHome>
+        <Link href="/">← Back to home</Link>
+      </BackToHome>
       )}
     </Container>
   );
 }
+
+export default Layout;

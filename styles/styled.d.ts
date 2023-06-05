@@ -7,6 +7,7 @@ declare module 'styled-components' {
         secondary: string
         toggleBorder: string
         background: string
+        link: string
         fontSize: {
             xxl: string
             xl: string

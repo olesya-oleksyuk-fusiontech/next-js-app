@@ -12,12 +12,15 @@ export const lightTheme = {
   main: '#363537',
   secondary: '#666',
   toggleBorder: '#FFF',
-  background: '#363537'
+  background: '#363537',
+  link: '#0070f3'
+
 };
 export const darkTheme = {
   body: '#363537',
   main: '#FAFAFA',
   secondary: '#a8a6a3',
   toggleBorder: '#6B8096',
-  background: '#999'
+  background: '#999',
+  link: '#b70202'
 };

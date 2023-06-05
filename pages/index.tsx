@@ -1,10 +1,10 @@
 import Head from 'next/head';
-import Link from 'next/link';
 import styled from 'styled-components';
 import Layout, { siteTitle } from '../components/layout';
 import { getSortedPostsData } from '../lib/posts';
-import Heading from '../components/atoms/heading';
-import DateNote from '../components/atoms/dateNote';
+import Heading from '../atoms/heading';
+import DateNote from '../atoms/dateNote';
+import LinkCustom from '../atoms/link';
 
 export async function getStaticProps() {
   const allPostsData = getSortedPostsData();
@@ -53,7 +53,7 @@ export default function Home({ allPostsData } : HomeProps) {
         <p>
           (This is a sample website - you’ll be building a site like this on
           {' '}
-          <a href="https://nextjs.org/learn">our Next.js tutorial</a>
+          <LinkCustom href="https://nextjs.org/learn">our Next.js tutorial</LinkCustom>
           .)
         </p>
       </AboutMe>
@@ -66,7 +66,7 @@ export default function Home({ allPostsData } : HomeProps) {
             title
           }) => (
             <Blog key={id}>
-              <Link href={`/posts/${id}`}>{title}</Link>
+              <LinkCustom href={`/posts/${id}`}>{title}</LinkCustom>
               <br />
               <DateNote dateString={date} />
             </Blog>

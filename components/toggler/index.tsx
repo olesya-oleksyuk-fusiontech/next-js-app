@@ -1,6 +1,6 @@
 import styled from 'styled-components';
-import Moon from '../svg/moon';
-import Sun from '../svg/sun';
+import Moon from '../../svg/moon';
+import Sun from '../../svg/sun';
 
 const Button = styled.button`
   border: 2px solid ${({ theme }) => theme.toggleBorder};

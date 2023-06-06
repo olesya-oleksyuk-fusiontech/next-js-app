@@ -1,3 +1,7 @@
+// This is the type definition for my theme object.
+export type ThemeType = typeof commonTheme & typeof lightTheme;
+export type ColorSchemeType = typeof lightTheme;
+
 export const commonTheme = {
   fontSize: {
     xxl: '2.5rem',
@@ -16,7 +20,7 @@ export const lightTheme = {
   link: '#0070f3',
 
 };
-export const darkTheme = {
+export const darkTheme: ColorSchemeType = {
   body: '#363537',
   main: '#FAFAFA',
   secondary: '#a8a6a3',

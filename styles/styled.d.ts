@@ -1,7 +1,8 @@
 import 'styled-components';
 
 declare module 'styled-components' {
-    export interface IDefaultTheme {
+    // eslint-disable-next-line @typescript-eslint/naming-convention
+    export interface DefaultTheme {
         body: string;
         main: string;
         secondary: string;

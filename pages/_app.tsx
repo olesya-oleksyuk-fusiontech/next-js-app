@@ -1,5 +1,5 @@
 import type { AppProps } from 'next/app';
-import type { IDefaultTheme } from 'styled-components';
+import type { DefaultTheme } from 'styled-components';
 import { ThemeProvider } from 'styled-components';
 import { useMemo } from 'react';
 import { GlobalStyles } from '../styles/Global';
@@ -9,7 +9,7 @@ import { useDarkMode } from '../hooks/useDarkMode';
 
 export default function App({ Component, pageProps } : AppProps) {
   const [currTheme, toggleTheme, isMounted] = useDarkMode();
-  const theme: IDefaultTheme = useMemo(() => {
+  const theme: DefaultTheme = useMemo(() => {
     const themeMode = currTheme === 'light' ? lightTheme : darkTheme;
     return { ...themeMode, ...commonTheme };
   }, [currTheme]);

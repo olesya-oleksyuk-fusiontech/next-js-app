@@ -4,8 +4,8 @@ export const commonTheme = {
     xl: '2rem',
     lg: '1.5rem',
     md: '1.2rem',
-    sm: '1rem'
-  }
+    sm: '1rem',
+  },
 };
 export const lightTheme = {
   body: '#FFF',
@@ -13,7 +13,7 @@ export const lightTheme = {
   secondary: '#666',
   toggleBorder: '#FFF',
   background: '#363537',
-  link: '#0070f3'
+  link: '#0070f3',
 
 };
 export const darkTheme = {
@@ -22,5 +22,5 @@ export const darkTheme = {
   secondary: '#a8a6a3',
   toggleBorder: '#6B8096',
   background: '#999',
-  link: '#b70202'
+  link: '#b70202',
 };

@@ -6,12 +6,12 @@ const StyledLink = styled(Link)`
   color: ${({ theme }) => theme.link};
 `;
 
-interface LinkCustomProps {
-    href: string
-    children: React.ReactNode
+interface ILinkCustom {
+    href: string;
+    children: React.ReactNode;
 }
 
-function LinkCustom({ href, children }: LinkCustomProps) {
+function LinkCustom({ href, children }: ILinkCustom) {
   return (
     <StyledLink href={href}>{children}</StyledLink>
   );

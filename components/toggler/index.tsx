@@ -17,7 +17,12 @@ const Button = styled.button`
   outline: none;
 `;
 
-export function ThemeToggler({ currTheme, onToggle }: { currTheme: string, onToggle: () => void }) {
+interface IThemeToggler {
+  currTheme: string;
+  onToggle: () => void;
+}
+
+export function ThemeToggler({ currTheme, onToggle }: IThemeToggler) {
   return (
     <Button onClick={onToggle}>
       {currTheme === 'light' ? <Moon /> : <Sun />}

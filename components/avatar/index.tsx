@@ -6,13 +6,13 @@ const AvatarImage = styled(Image)`
   border-radius: 9999px;
 `;
 
-interface AvatarProps {
-    onHome?: boolean
+interface IAvatar {
+    onHome?: boolean;
 }
-function Avatar({ onHome }: AvatarProps) {
+function Avatar({ onHome }: IAvatar) {
   const imgSize = {
     big: 144,
-    small: 108
+    small: 108,
   };
 
   return (

@@ -4,8 +4,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint",
-    "lintfix": "next lint -- --fix"
+    "lint": "./node_modules/.bin/eslint . -c .eslintrc.json --quiet --ext .js,.jsx,.ts,.tsx",
+    "lint:fix": "./node_modules/.bin/eslint . -c .eslintrc.json --quiet --fix --ext .js,.jsx,.ts,.tsx"
   },
   "dependencies": {
     "date-fns": "^2.30.0",
@@ -24,6 +24,9 @@
     "@typescript-eslint/eslint-plugin": "^5.59.8",
     "eslint": "8.41.0",
     "eslint-config-airbnb": "^19.0.4",
-    "eslint-config-next": "13.4.4"
+    "eslint-config-next": "13.4.4",
+    "eslint-plugin-no-inline-styles": "^1.0.5",
+    "eslint-plugin-react-hooks": "^4.6.0",
+    "eslint-plugin-styled-components-config": "^0.0.2"
   }
 }

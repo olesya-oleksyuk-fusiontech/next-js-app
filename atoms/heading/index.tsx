@@ -26,12 +26,12 @@ const HeadingMd = styled.h1`
   line-height: 1.5;
 `;
 
-interface HeadingProps {
-    size: '2xl' | 'xl' | 'lg' | 'md'
-    children: React.ReactNode
+interface IHeading {
+    size: '2xl' | 'xl' | 'lg' | 'md';
+    children: React.ReactNode;
 }
 
-function Heading({ size, children }: HeadingProps) {
+function Heading({ size, children }: IHeading) {
   switch (size) {
     case '2xl':
       return (<Heading2Xl>{children}</Heading2Xl>);

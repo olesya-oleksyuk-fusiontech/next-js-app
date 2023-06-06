@@ -30,14 +30,14 @@ const Blog = styled.li`
   margin: 0 0 1.25rem;
 `;
 
-interface HomeProps {
+interface IHome {
     allPostsData: {
-        date: string
-        title: string
-        id: string
-    }[]
+        date: string;
+        title: string;
+        id: string;
+    }[];
 }
-export default function Home({ allPostsData } : HomeProps) {
+export default function Home({ allPostsData } : IHome) {
   return (
     <Layout home>
       <Head>
@@ -63,7 +63,7 @@ export default function Home({ allPostsData } : HomeProps) {
           {allPostsData.map(({
             id,
             date,
-            title
+            title,
           }) => (
             <Blog key={id}>
               <LinkCustom href={`/posts/${id}`}>{title}</LinkCustom>

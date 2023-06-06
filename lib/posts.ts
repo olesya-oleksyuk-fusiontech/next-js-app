@@ -1,63 +1,37 @@
-import fs from 'fs';
-import path from 'path';
-import matter from 'gray-matter';
-import { remark } from 'remark';
-import html from 'remark-html';
+import { faker } from '@faker-js/faker';
+import type { AllPostsDataType, SinglePostDataType } from '../pages';
 
-const postsDirectory = path.join(process.cwd(), 'posts');
-
-export function getSortedPostsData() {
-  // Get file names under /posts
-  const fileNames = fs.readdirSync(postsDirectory);
-  const allPostsData = fileNames.map((fileName) => {
-    // Remove ".md" from file name to get id
-    const id = fileName.replace(/\.md$/, '');
-
-    // Read markdown file as string
-    const fullPath = path.join(postsDirectory, fileName);
-    const fileContents = fs.readFileSync(fullPath, 'utf8');
-
-    // Use gray-matter to parse the post metadata section
-    const matterResult = matter(fileContents);
-
-    // Combine the data with the id
-    return {
-      id,
-      ...(matterResult.data as { date: string; title: string }),
-    };
-  });
-  // Sort posts by date
-  return allPostsData.sort((a, b) => {
-    if (a.date < b.date) {
+const getDates = (count = 10, pastYears = 5) => {
+  const dates = [];
+  for (let i = 0; i < count; i++) {
+    dates.push(faker.date.past({ years: pastYears }).toISOString());
+  }
+  return dates.sort((a, b) => {
+    if (a < b) {
       return 1;
     }
     return -1;
   });
-}
+};
+
+export const getPostsData = async (limit = 5): Promise<AllPostsDataType> => {
+  const res = await fetch(`https://dummyjson.com/posts?limit=${limit}&select=title,body`);
+  const data = await res.json();
+  const dates = getDates(5);
+  return { data, dates };
+};
+
+export const getPost = async (id : string): Promise<SinglePostDataType> => {
+  const res = await fetch(`https://dummyjson.com/posts/${id}`);
+  const data = await res.json();
+  const date = getDates(1)[0];
+  return { post: { id: data.id, title: data.title, content: data.body }, date };
+};
 
 // a list of possible value for id to use in getStaticPaths
-export function getAllPostIds() {
-  const fileNames = fs.readdirSync(postsDirectory);
-  return fileNames.map((fileName) => ({ params: { id: fileName.replace(/\.md$/, '') } }));
-}
-
-export async function getPostData(id: string) {
-  const fullPath = path.join(postsDirectory, `${id}.md`);
-  const fileContents = fs.readFileSync(fullPath, 'utf8');
-
-  // Use gray-matter to parse the post metadata section
-  const matterResult = matter(fileContents);
-
-  // Use remark to convert markdown into HTML string
-  const processedContent = await remark()
-    .use(html)
-    .process(matterResult.content);
-  const contentHtml = processedContent.toString();
-
-  // Combine the data with the id and contentHtml
-  return {
-    id,
-    contentHtml,
-    ...(matterResult.data as { date: string; title: string }),
-  };
+export async function getAllPostIds() {
+  const postsData = await getPostsData(5);
+  return postsData.data.posts.map((post) => ({
+    params: { id: post.id.toString(10) },
+  }));
 }

@@ -1,8 +1,8 @@
 import type { AppProps } from 'next/app';
 import { ThemeProvider } from 'styled-components';
-import { GlobalStyles } from '../theme/Global';
+import { GlobalStyles } from '../styling/Global';
 import { useColorTheme } from '../hooks/useColorTheme';
-import { createTheme } from '../theme/themeObjects/default.utils';
+import { createTheme } from '../styling/theme/default.utils';
 import ThemeToggler from '../components/Toggler';
 
 const App = ({

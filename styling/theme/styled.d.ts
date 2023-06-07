@@ -1,5 +1,5 @@
 import 'styled-components';
-import type { ThemeType } from './themeObjects/default.utils';
+import type { ThemeType } from './theme/default.utils';
 
 declare module 'styled-components' {
   // eslint-disable-next-line

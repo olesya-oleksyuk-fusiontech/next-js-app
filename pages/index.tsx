@@ -1,13 +1,14 @@
 import Head from 'next/head';
 import styled from 'styled-components';
 import Layout, { siteTitle } from '../components/layout';
-import { getSortedPostsData } from '../lib/posts';
 import Heading from '../atoms/heading';
-import DateNote from '../atoms/dateNote';
 import LinkCustom from '../atoms/link';
+import { getPostsData } from '../lib/posts';
+import DateNote from '../atoms/dateNote';
 
+// runs at build time (never runs in the browser)
 export async function getStaticProps() {
-  const allPostsData = getSortedPostsData();
+  const allPostsData = await getPostsData(5);
   return { props: { allPostsData } };
 }
 
@@ -30,12 +31,33 @@ const Blog = styled.li`
   margin: 0 0 1.25rem;
 `;
 
+export type PostType = {
+  id: number;
+  title: string;
+  body: string;
+};
+
+export type AllPostsDataType = {
+  data: {
+    posts: PostType[];
+    limit: number;
+    skip: number;
+    total: number;
+  };
+  dates: string[];
+};
+
+export type SinglePostDataType = {
+  post: {
+    id: number;
+    title: string;
+    content: string;
+  };
+  date: string;
+};
+
 interface IHome {
-    allPostsData: {
-        date: string;
-        title: string;
-        id: string;
-    }[];
+  allPostsData: AllPostsDataType;
 }
 export default function Home({ allPostsData } : IHome) {
   return (
@@ -60,15 +82,14 @@ export default function Home({ allPostsData } : IHome) {
       <Blogs>
         <Heading size="lg">Blog</Heading>
         <BlogList>
-          {allPostsData.map(({
+          {allPostsData.data.posts.map(({
             id,
-            date,
             title,
-          }) => (
+          }, index) => (
             <Blog key={id}>
               <LinkCustom href={`/posts/${id}`}>{title}</LinkCustom>
               <br />
-              <DateNote dateString={date} />
+              <DateNote dateString={allPostsData.dates[index]} />
             </Blog>
           ))}
         </BlogList>

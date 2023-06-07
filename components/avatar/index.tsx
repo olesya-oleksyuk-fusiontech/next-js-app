@@ -3,12 +3,13 @@ import Image from 'next/image';
 import styled from 'styled-components';
 
 const AvatarImage = styled(Image)`
-  border-radius: 9999px;
+  border-radius: 100%;
 `;
 
 interface IAvatar {
-    onHome?: boolean;
+  onHome?: boolean;
 }
+
 function Avatar({ onHome }: IAvatar) {
   const imgSize = {
     big: 144,

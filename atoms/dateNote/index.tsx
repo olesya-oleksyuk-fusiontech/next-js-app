@@ -3,8 +3,8 @@ import { format, parseISO } from 'date-fns';
 import styled from 'styled-components';
 
 const Time = styled.time`
-  color: ${({ theme }) => theme.secondary};
-  font-size: ${({ theme }) => theme.fontSize.sm};
+  color: ${({ theme }) => theme.colors.text.secondary};
+  font-size: ${({ theme }) => theme.font.size.sm};
 `;
 
 function DateNote({ dateString }: { dateString: string }) {

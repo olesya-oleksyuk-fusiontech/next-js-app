@@ -23,9 +23,9 @@ const Header = styled.header`
 
 const BackToHome = styled.div`
   margin: 3rem 0 0;
-  
+
   a {
-    color: ${({ theme }) => theme.link};
+    color: ${({ theme }) => theme.colors.link};
   }
 `;
 
@@ -33,9 +33,12 @@ const HeadingLink = styled(Link)`
   color: inherit;
 `;
 
-function Layout({ children, home }: {
-    children: React.ReactNode;
-    home?: boolean;
+function Layout({
+  children,
+  home,
+}: {
+  children: React.ReactNode;
+  home?: boolean;
 }) {
   return (
     <Container>
@@ -75,9 +78,9 @@ function Layout({ children, home }: {
       </Header>
       <main>{children}</main>
       {!home && (
-      <BackToHome>
-        <Link href="/">← Back to home</Link>
-      </BackToHome>
+        <BackToHome>
+          <Link href="/">← Back to home</Link>
+        </BackToHome>
       )}
     </Container>
   );

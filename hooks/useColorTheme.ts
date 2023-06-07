@@ -1,11 +1,11 @@
 import { useEffect, useState } from 'react';
 
-export type ThemeType = 'dark' | 'light';
+export type ThemeOptionType = 'dark' | 'light';
 
-export const useDarkMode = () => {
-  const [currTheme, setTheme] = useState<ThemeType>('light');
+export const useColorTheme = () => {
+  const [currTheme, setTheme] = useState<ThemeOptionType>('light');
 
-  const setMode = (mode: ThemeType) => {
+  const setMode = (mode: ThemeOptionType) => {
     window.localStorage.setItem('theme', mode);
     setTheme(mode);
   };
@@ -30,7 +30,7 @@ export const useDarkMode = () => {
     window.matchMedia('(prefers-color-scheme: dark)')
       .addEventListener('change', handleDarkModePreferredChange);
 
-    const localTheme = window.localStorage.getItem('theme') as ThemeType | null;
+    const localTheme = window.localStorage.getItem('theme') as ThemeOptionType | null;
     const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
 
     if (localTheme) {

@@ -12,7 +12,7 @@ export async function getStaticProps() {
 }
 
 const AboutMe = styled.section`
-  font-size: ${({ theme }) => theme.fontSize.md};
+  font-size: ${({ theme }) => theme.font.size.md};
   line-height: 1.5;
 `;
 
@@ -21,9 +21,9 @@ const Blogs = styled(AboutMe)`
 `;
 
 const BlogList = styled.ul`
-    list-style: none;
-    padding: 0;
-    margin: 0;
+  list-style: none;
+  padding: 0;
+  margin: 0;
 `;
 
 const Blog = styled.li`
@@ -31,13 +31,14 @@ const Blog = styled.li`
 `;
 
 interface IHome {
-    allPostsData: {
-        date: string;
-        title: string;
-        id: string;
-    }[];
+  allPostsData: {
+    date: string;
+    title: string;
+    id: string;
+  }[];
 }
-export default function Home({ allPostsData } : IHome) {
+
+export default function Home({ allPostsData }: IHome) {
   return (
     <Layout home>
       <Head>

@@ -2,14 +2,15 @@ import React from 'react';
 import styled from 'styled-components';
 
 const Heading2Xl = styled.h1`
-  font-size: ${({ theme }) => theme.fontSize.xxl};
+  font-size: ${({ theme }) => theme.font.size.xxl};
   line-height: 1.2;
   font-weight: 800;
   letter-spacing: -0.05rem;
   margin: 1rem 0;
 `;
+
 const HeadingXl = styled.h2`
-  font-size: ${({ theme }) => theme.fontSize.xl};
+  font-size: ${({ theme }) => theme.font.size.xl};
   line-height: 1.3;
   font-weight: 800;
   letter-spacing: -0.05rem;
@@ -17,21 +18,24 @@ const HeadingXl = styled.h2`
 `;
 
 const HeadingLg = styled.h1`
-  font-size: ${({ theme }) => theme.fontSize.lg};
+  font-size: ${({ theme }) => theme.font.size.lg};
   line-height: 1.4;
   margin: 1rem 0;
 `;
 const HeadingMd = styled.h1`
-  font-size: ${({ theme }) => theme.fontSize.md};
+  font-size: ${({ theme }) => theme.font.size.md};
   line-height: 1.5;
 `;
 
 interface IHeading {
-    size: '2xl' | 'xl' | 'lg' | 'md';
-    children: React.ReactNode;
+  size: '2xl' | 'xl' | 'lg' | 'md';
+  children: React.ReactNode;
 }
 
-function Heading({ size, children }: IHeading) {
+function Heading({
+  size,
+  children,
+}: IHeading) {
   switch (size) {
     case '2xl':
       return (<Heading2Xl>{children}</Heading2Xl>);

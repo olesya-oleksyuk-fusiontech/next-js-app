@@ -1,14 +1,14 @@
 import type { AppProps } from 'next/app';
 import { ThemeProvider } from 'styled-components';
 import { GlobalStyles } from '../theme/Global';
-import { ThemeToggler } from '../components/toggler';
 import { useColorTheme } from '../hooks/useColorTheme';
 import { createTheme } from '../theme/themeObjects/default.utils';
+import ThemeToggler from '../components/Toggler';
 
-export default function App({
+const App = ({
   Component,
   pageProps,
-}: AppProps) {
+}: AppProps) => {
   const [currTheme, toggleTheme] = useColorTheme();
   const theme = createTheme(currTheme);
   return (
@@ -18,4 +18,6 @@ export default function App({
       <Component {...pageProps} />
     </ThemeProvider>
   );
-}
+};
+
+export default App;

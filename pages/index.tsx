@@ -1,46 +1,26 @@
 import Head from 'next/head';
-import styled from 'styled-components';
-import Layout, { siteTitle } from '../components/layout';
+import Link from 'next/link';
+import React from 'react';
 import { getSortedPostsData } from '../lib/posts';
 import Heading from '../components/Heading';
-import DateNote from '../atoms/dateNote';
-import LinkCustom from '../atoms/link';
+import DateNote from '../components/DateNote';
+import Layout, { siteTitle } from '../containers/Layout';
+import { AboutMe, Blogs } from './Home.styles';
 
 export async function getStaticProps() {
   const allPostsData = getSortedPostsData();
   return { props: { allPostsData } };
 }
 
-const AboutMe = styled.section`
-  font-size: ${({ theme }) => theme.font.size.md};
-  line-height: 1.5;
-`;
-
-const Blogs = styled(AboutMe)`
-  padding-top: 1px;
-`;
-
-const BlogList = styled.ul`
-  list-style: none;
-  padding: 0;
-  margin: 0;
-`;
-
-const Blog = styled.li`
-  margin: 0 0 1.25rem;
-`;
-
-interface IHome {
+const Home: React.FC<{
   allPostsData: {
     date: string;
     title: string;
     id: string;
   }[];
-}
-
-export default function Home({ allPostsData }: IHome) {
+}> = (props) => {
   return (
-    <Layout home>
+    <Layout isHome>
       <Head>
         <title>{siteTitle}</title>
       </Head>
@@ -54,26 +34,28 @@ export default function Home({ allPostsData }: IHome) {
         <p>
           (This is a sample website - you’ll be building a site like this on
           {' '}
-          <LinkCustom href="https://nextjs.org/learn">our Next.js tutorial</LinkCustom>
+          <Link href="https://nextjs.org/learn">our Next.js tutorial</Link>
           .)
         </p>
       </AboutMe>
       <Blogs>
         <Heading level="h3">Blog</Heading>
-        <BlogList>
-          {allPostsData.map(({
+        <ul className="blog__list">
+          {props.allPostsData.map(({
             id,
             date,
             title,
           }) => (
-            <Blog key={id}>
-              <LinkCustom href={`/posts/${id}`}>{title}</LinkCustom>
+            <li key={id} className="blog__item">
+              <Link href={`/posts/${id}`}>{title}</Link>
               <br />
               <DateNote dateString={date} />
-            </Blog>
+            </li>
           ))}
-        </BlogList>
+        </ul>
       </Blogs>
     </Layout>
   );
-}
+};
+
+export default Home;

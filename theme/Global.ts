@@ -18,6 +18,7 @@ export const GlobalStyles = createGlobalStyle`
   }
 
   a {
+    color: ${({ theme }) => theme.colors.link};
     text-decoration: none;
   }
 

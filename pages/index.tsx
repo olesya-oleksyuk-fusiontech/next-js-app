@@ -2,7 +2,7 @@ import Head from 'next/head';
 import styled from 'styled-components';
 import Layout, { siteTitle } from '../components/layout';
 import { getSortedPostsData } from '../lib/posts';
-import Heading from '../atoms/heading';
+import Heading from '../components/Heading';
 import DateNote from '../atoms/dateNote';
 import LinkCustom from '../atoms/link';
 
@@ -59,7 +59,7 @@ export default function Home({ allPostsData }: IHome) {
         </p>
       </AboutMe>
       <Blogs>
-        <Heading size="lg">Blog</Heading>
+        <Heading level="h3">Blog</Heading>
         <BlogList>
           {allPostsData.map(({
             id,

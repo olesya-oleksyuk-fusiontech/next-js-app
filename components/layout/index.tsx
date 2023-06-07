@@ -2,9 +2,9 @@ import Head from 'next/head';
 import Link from 'next/link';
 import React from 'react';
 import styled from 'styled-components';
-import Heading from '../../atoms/heading';
 import Avatar from '../avatar';
 import LinkCustom from '../../atoms/link';
+import Heading from '../Heading';
 
 const name = 'Olesia Oleksiuk';
 export const siteTitle = 'Next.js Sample Website';
@@ -61,14 +61,14 @@ function Layout({
         {home ? (
           <>
             <Avatar onHome />
-            <Heading size="2xl">{name}</Heading>
+            <Heading level="h1">{name}</Heading>
           </>
         ) : (
           <>
             <LinkCustom href="/">
               <Avatar />
             </LinkCustom>
-            <Heading size="lg">
+            <Heading level="h3">
               <HeadingLink href="/">
                 {name}
               </HeadingLink>

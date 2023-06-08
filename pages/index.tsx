@@ -5,7 +5,7 @@ import { getSortedPostsData } from '../lib/posts';
 import Heading from '../components/Heading';
 import DateNote from '../components/DateNote';
 import Layout, { siteTitle } from '../containers/Layout';
-import { HomePage } from '../styling/homePageStyles';
+import { HomePage } from '../components/homePageStyles';
 
 export async function getStaticProps() {
   const allPostsData = getSortedPostsData();

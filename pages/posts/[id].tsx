@@ -1,9 +1,10 @@
 import Head from 'next/head';
 import type { GetStaticPaths, GetStaticProps } from 'next';
+import React from 'react';
 import { getAllPostIds, getPostData } from '../../lib/posts';
-import Layout from '../../components/layout';
-import Heading from '../../atoms/heading';
-import DateNote from '../../atoms/dateNote';
+import Layout from '../../containers/Layout';
+import Heading from '../../components/Heading';
+import DateNote from '../../components/DateNote/DateNote';
 
 export const getStaticPaths: GetStaticPaths = async () => {
   const paths = getAllPostIds();
@@ -17,26 +18,28 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
   const postData = await getPostData(params?.id as string);
   return { props: { postData } };
 };
-export interface IPost {
-    postData: {
-        title: string;
-        date: string;
-        contentHtml: string;
-    };
-}
 
-export default function Post({ postData } : IPost) {
+const Post: React.FC<{
+  postData: {
+    title: string;
+    date: string;
+    contentHtml: string;
+  };
+  toggleTheme: () => void;
+}> = (props) => {
   return (
-    <Layout>
+    <Layout toggleTheme={props.toggleTheme}>
       <Head>
-        <title>{postData.title}</title>
+        <title>{props.postData.title}</title>
       </Head>
       <article>
-        <Heading size="xl">{postData.title}</Heading>
-        <DateNote dateString={postData.date} />
+        <Heading level="h2">{props.postData.title}</Heading>
+        <DateNote dateString={props.postData.date} />
         {/* eslint-disable-next-line react/no-danger */}
-        <div dangerouslySetInnerHTML={{ __html: postData.contentHtml }} />
+        <div dangerouslySetInnerHTML={{ __html: props.postData.contentHtml }} />
       </article>
     </Layout>
   );
-}
+};
+
+export default Post;

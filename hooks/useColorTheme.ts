@@ -1,16 +1,11 @@
 import { useEffect, useState } from 'react';
 
-export type ThemeType = 'dark' | 'light';
+export type ThemeOptionType = 'dark' | 'light';
 
-export const useDarkMode = () => {
-  const [currTheme, setTheme] = useState<ThemeType>('light');
-  // use isMounted to determine when the app has mounted and display it only when isMounted is true.
-  // This way removed the brief flicker (due to Next.js SSR rendering)
-  // https://blog.logrocket.com/theming-in-next-js-with-styled-components-and-usedarkmode/
-  const [isMounted, setIsMounted] = useState(false);
+export const useColorTheme = () => {
+  const [currTheme, setTheme] = useState<ThemeOptionType>('light');
 
-  // use localStorage to persist a preferred theme between sessions in the browser
-  const setMode = (mode: ThemeType) => {
+  const setMode = (mode: ThemeOptionType) => {
     window.localStorage.setItem('theme', mode);
     setTheme(mode);
   };
@@ -32,11 +27,10 @@ export const useDarkMode = () => {
       }
     }
 
-    //  register an event-listener to detect user's prefers-color-scheme change
     window.matchMedia('(prefers-color-scheme: dark)')
       .addEventListener('change', handleDarkModePreferredChange);
 
-    const localTheme = window.localStorage.getItem('theme') as ThemeType | null;
+    const localTheme = window.localStorage.getItem('theme') as ThemeOptionType | null;
     const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
 
     if (localTheme) {
@@ -45,13 +39,11 @@ export const useDarkMode = () => {
       setTheme('dark');
     }
 
-    setIsMounted(true);
-    // good housekeeping to remove listener
     return () => {
       window.matchMedia('(prefers-color-scheme: dark)')
         .removeEventListener('change', handleDarkModePreferredChange);
     };
   }, []);
 
-  return [currTheme, toggleTheme, isMounted] as const;
+  return [currTheme, toggleTheme] as const;
 };

@@ -1,16 +1,15 @@
 import { createGlobalStyle } from 'styled-components';
 
-export const GlobalStyles = createGlobalStyle`
+const GlobalStyle = createGlobalStyle`
   html,
   body {
     padding: 0;
     margin: 0;
-    font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen, Ubuntu,
-    Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+    font-family: ${({ theme }) => theme.font.family};
     line-height: 1.6;
-    font-size: 18px;
-    background: ${({ theme }) => theme.body};
-    color: ${({ theme }) => theme.main};
+    font-size: ${({ theme }) => theme.font.size.sm};
+    background: ${({ theme }) => theme.colors.body};
+    color: ${({ theme }) => theme.colors.text.main};
     transition: background 0.2s ease-in, color 0.2s ease-in;
   }
 
@@ -19,6 +18,7 @@ export const GlobalStyles = createGlobalStyle`
   }
 
   a {
+    color: ${({ theme }) => theme.colors.link};
     text-decoration: none;
   }
 
@@ -30,4 +30,6 @@ export const GlobalStyles = createGlobalStyle`
     max-width: 100%;
     display: block;
   }
-  `;
+`;
+
+export default GlobalStyle;

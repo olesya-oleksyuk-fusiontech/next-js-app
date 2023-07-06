@@ -1,12 +1,16 @@
 import Head from 'next/head';
 import React from 'react';
+import ThemeToggler from '../../components/Toggler/ThemeToggler';
 import Footer from '../Footer';
 import Header from '../Header';
 import { Container } from './Layout.styles';
 
 export const siteTitle = 'Next.js Sample Website';
 
-const Layout: React.FC<{ isHome?: boolean } & React.PropsWithChildren> = (props) => {
+const Layout: React.FC<{
+  isHome?: boolean;
+  toggleTheme: () => void;
+} & React.PropsWithChildren> = (props) => {
   return (
     <Container>
       <Head>
@@ -24,6 +28,7 @@ const Layout: React.FC<{ isHome?: boolean } & React.PropsWithChildren> = (props)
         <meta name="og:title" content={siteTitle} />
         <meta name="twitter:card" content="summary_large_image" />
       </Head>
+      <ThemeToggler onToggle={props.toggleTheme} />
       <Header isHome={props.isHome} />
       <main>{props.children}</main>
       {!props.isHome && <Footer />}

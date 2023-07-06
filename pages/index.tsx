@@ -18,9 +18,10 @@ const Home: React.FC<{
     title: string;
     id: string;
   }[];
+  toggleTheme: () => void;
 }> = (props) => {
   return (
-    <Layout isHome>
+    <Layout isHome toggleTheme={props.toggleTheme}>
       <Head>
         <title>{siteTitle}</title>
       </Head>

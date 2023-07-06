@@ -1,11 +1,15 @@
 const defaultTheme = {
+  theme: 'light',
   colors: {
     body: '#FFF',
     text: {
       main: '#363537',
       secondary: '#666',
     },
-    toggleBorder: '#FFF',
+    toggle: {
+      border: '#FFF',
+      background: '#4ad6fe',
+    },
     background: '#363537',
     link: '#0070f3',
   },

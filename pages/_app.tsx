@@ -14,8 +14,7 @@ const App = ({
   return (
     <ThemeProvider theme={theme}>
       <GlobalStyle />
-      <ThemeToggler currTheme={currTheme} onToggle={toggleTheme} />
-      <Component {...pageProps} />
+      <Component {...pageProps} toggleTheme={toggleTheme} />
     </ThemeProvider>
   );
 };

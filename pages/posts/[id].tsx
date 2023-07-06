@@ -25,9 +25,10 @@ const Post: React.FC<{
     date: string;
     contentHtml: string;
   };
+  toggleTheme: () => void;
 }> = (props) => {
   return (
-    <Layout>
+    <Layout toggleTheme={props.toggleTheme}>
       <Head>
         <title>{props.postData.title}</title>
       </Head>

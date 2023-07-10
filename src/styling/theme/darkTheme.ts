@@ -7,9 +7,11 @@ const darkTheme = {
       secondary: '#a8a6a3',
     },
     toggle: {
-      border: '#0d0d0d',
+      border: '#362f2f',
+      background: '#a61414',
+      hover: '#4ad6fe',
     },
-    background: '#999',
+    background: '#4b4646',
     link: '#b70202',
   },
 };

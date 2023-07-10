@@ -25,32 +25,28 @@ export const TogglerButton = styled.button<PropsType>`
   justify-content: center;
   align-items: center;
 
+  &:hover {
+    background: ${({ theme }) => theme.colors.toggle.hover};
+  }
+
   ${({ currTheme }) => {
     if (currTheme === 'light') {
       return css`
-        background: #4ad6fe;
-
         &:hover {
-          background: #a61414;
-
           svg {
-            filter: brightness(0) saturate(100%) invert(0%) sepia(0%) saturate(18%) hue-rotate(293deg) brightness(102%) contrast(105%);
+            filter: ${({ theme }) => theme.svgFilters.black};
           }
-        }
-
-        svg:hover {
-
         }
       `;
     }
     return css`
-      background: #a61414;
+      svg {
+        filter: ${({ theme }) => theme.svgFilters.black};
+      }
 
       &:hover {
-        background: #4ad6fe;
-
         svg {
-          filter: brightness(0) saturate(100%) invert(0%) sepia(0%) saturate(18%) hue-rotate(293deg) brightness(102%) contrast(105%);
+          filter: ${({ theme }) => theme.svgFilters.white};
         }
       }
     `;

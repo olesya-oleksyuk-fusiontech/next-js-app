@@ -1,5 +1,9 @@
 const defaultTheme = {
   currTheme: 'light',
+  svgFilters: {
+    black: 'brightness(0) saturate(100%) invert(0%) sepia(0%) saturate(18%) hue-rotate(293deg) brightness(102%) contrast(105%)',
+    white: 'brightness(0) saturate(100%) invert(100%) sepia(5%) saturate(11%) hue-rotate(77deg) brightness(104%) contrast(100%)',
+  },
   colors: {
     body: '#FFF',
     text: {
@@ -9,6 +13,7 @@ const defaultTheme = {
     toggle: {
       border: '#FFF',
       background: '#4ad6fe',
+      hover: '#a61414',
     },
     background: '#363537',
     link: '#0070f3',

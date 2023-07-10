@@ -1,6 +1,7 @@
 import Head from 'next/head';
 import Link from 'next/link';
 import React from 'react';
+import { dehydrate, QueryClient, useQuery } from 'react-query';
 import { formTitleUrlParam, getSortedPostsData } from '../lib/posts';
 import Heading from '../components/Heading';
 import DateNote from '../components/DateNote';
@@ -9,14 +10,71 @@ import { HomePage } from '../components/homePageStyles';
 import type { PostInListType } from '../interfaces';
 
 export async function getStaticProps() {
-  const allPostsData = await getSortedPostsData();
-  return { props: { allPostsData } };
+  // ensures that data is not shared between different users and requests
+  const queryClient = new QueryClient();
+  await queryClient.prefetchQuery(['posts'], () => getSortedPostsData(), {
+    staleTime: 24 * 60 * (60 * 1000), // refetch once a day on the server
+  });
+  return {
+    props: {
+      dehydratedState: dehydrate(queryClient),
+    },
+  };
 }
 
 const Home: React.FC<{
   allPostsData: PostInListType[];
   toggleTheme: () => void;
 }> = (props) => {
+  const {
+    isSuccess,
+    data: postsData,
+    error,
+  } = useQuery(
+    ['posts'],
+    () => getSortedPostsData(),
+    {
+      staleTime: 10 * (60 * 1000), // refetch every 10 mins
+    },
+  );
+
+  const renderPosts = () => {
+    if (isSuccess) {
+      return (
+        <>
+          <Heading level="h3">Blog</Heading>
+          <ul className="blog__list">
+            {postsData?.map(({
+              id,
+              date,
+              title,
+            }) => (
+              <li key={id} className="blog__item">
+                <Link href={`/posts/${formTitleUrlParam(title)}/${id}`}>{title}</Link>
+                <br />
+                <DateNote dateString={date} />
+              </li>
+            ))}
+          </ul>
+        </>
+      );
+    }
+
+    if (error) {
+      return (
+        <>
+          <Heading level="h2">
+            Something went wrong{' '}
+            <span role="img" aria-label="sad">
+                  😢
+            </span>
+          </Heading>
+          <div>{`An error has occurred: ${error}`}</div>
+        </>
+      );
+    }
+  };
+
   return (
     <Layout isHome toggleTheme={props.toggleTheme}>
       <Head>
@@ -38,20 +96,9 @@ const Home: React.FC<{
           </p>
         </section>
         <section className="blog">
-          <Heading level="h3">Blog</Heading>
-          <ul className="blog__list">
-            {props.allPostsData.map(({
-              id,
-              date,
-              title,
-            }) => (
-              <li key={id} className="blog__item">
-                <Link href={`/posts/${formTitleUrlParam(title)}/${id}`}>{title}</Link>
-                <br />
-                <DateNote dateString={date} />
-              </li>
-            ))}
-          </ul>
+          {
+            renderPosts()
+          }
         </section>
       </HomePage>
     </Layout>

@@ -1,4 +1,4 @@
-import type { PostInListType } from '../interfaces';
+import type { PostInListType, PostType } from '../interfaces';
 
 export const getMockDates = (numDates: number, dateRange: [Date, Date]) => {
   const [startDate, endDate] = dateRange;
@@ -41,11 +41,6 @@ export const formTitleUrlParam = (str: string) => {
   return withoutDots.replace(/\s/g, '-');
 };
 
-export type PostType = {
-  id: number;
-  title: string;
-};
-
 // a list of possible value for id to use in getStaticPaths
 export async function getAllPostIds() {
   const response = await fetch('https://dummyjson.com/posts?limit=10&select=title');
@@ -59,9 +54,9 @@ export async function getAllPostIds() {
   }));
 }
 
-export async function getPostData(id: string) {
+export async function fetchPostData(id: string) {
   const response = await fetch(`https://dummyjson.com/posts/${id}`);
-  const post = await response.json();
+  const post: PostType = await response.json();
 
   return {
     post,

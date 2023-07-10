@@ -1,23 +1,20 @@
 import Head from 'next/head';
 import Link from 'next/link';
 import React from 'react';
-import { getSortedPostsData } from '../lib/posts';
+import { formTitleUrlParam, getSortedPostsData } from '../lib/posts';
 import Heading from '../components/Heading';
 import DateNote from '../components/DateNote';
 import Layout, { siteTitle } from '../containers/Layout';
 import { HomePage } from '../components/homePageStyles';
+import type { PostInListType } from '../interfaces';
 
 export async function getStaticProps() {
-  const allPostsData = getSortedPostsData();
+  const allPostsData = await getSortedPostsData();
   return { props: { allPostsData } };
 }
 
 const Home: React.FC<{
-  allPostsData: {
-    date: string;
-    title: string;
-    id: string;
-  }[];
+  allPostsData: PostInListType[];
   toggleTheme: () => void;
 }> = (props) => {
   return (
@@ -49,7 +46,7 @@ const Home: React.FC<{
               title,
             }) => (
               <li key={id} className="blog__item">
-                <Link href={`/posts/${id}`}>{title}</Link>
+                <Link href={`/posts/${formTitleUrlParam(title)}/${id}`}>{title}</Link>
                 <br />
                 <DateNote dateString={date} />
               </li>

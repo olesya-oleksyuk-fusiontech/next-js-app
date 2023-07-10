@@ -19,4 +19,5 @@ export const HomePage = styled.div`
   .blog__item {
     margin: 0 0 1.25rem;
   }
+
 `;

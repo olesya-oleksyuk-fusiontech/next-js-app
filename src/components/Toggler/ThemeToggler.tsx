@@ -1,8 +1,8 @@
 import React, { createRef } from 'react';
 import { useTheme } from 'styled-components';
 import { TogglerButton } from './Toggler.styles';
-import { svgMoon, svgSun } from '../../public/svg/svg';
 import SVG from '../SVG/SVG';
+import { svgMoon, svgSun } from '../../../public/svg/svg';
 
 const ThemeToggler: React.FC<{
   onToggle: () => void;

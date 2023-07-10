@@ -1,8 +1,11 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
+import type { ThemeType } from '../../styling/Global';
 
-export const TogglerButton = styled.button.attrs(({ ref }) => ({
-  ref,
-}))`
+type PropsType = {
+  currTheme: ThemeType;
+};
+
+export const TogglerButton = styled.button<PropsType>`
   position: absolute;
   top: 0;
   left: 0;
@@ -21,4 +24,36 @@ export const TogglerButton = styled.button.attrs(({ ref }) => ({
   display: flex;
   justify-content: center;
   align-items: center;
+
+  ${({ currTheme }) => {
+    if (currTheme === 'light') {
+      return css`
+        background: #4ad6fe;
+
+        &:hover {
+          background: #a61414;
+
+          svg {
+            filter: brightness(0) saturate(100%) invert(0%) sepia(0%) saturate(18%) hue-rotate(293deg) brightness(102%) contrast(105%);
+          }
+        }
+
+        svg:hover {
+
+        }
+      `;
+    }
+    return css`
+      background: #a61414;
+
+      &:hover {
+        background: #4ad6fe;
+
+        svg {
+          filter: brightness(0) saturate(100%) invert(0%) sepia(0%) saturate(18%) hue-rotate(293deg) brightness(102%) contrast(105%);
+        }
+      }
+    `;
+  }}
+
 `;

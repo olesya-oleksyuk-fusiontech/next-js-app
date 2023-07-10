@@ -32,4 +32,6 @@ const GlobalStyle = createGlobalStyle`
   }
 `;
 
+export type ThemeType = 'light' | 'dark';
+
 export default GlobalStyle;

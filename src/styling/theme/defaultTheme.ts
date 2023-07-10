@@ -1,5 +1,5 @@
 const defaultTheme = {
-  theme: 'light',
+  currTheme: 'light',
   colors: {
     body: '#FFF',
     text: {

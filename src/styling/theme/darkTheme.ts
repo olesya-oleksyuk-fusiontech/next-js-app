@@ -1,5 +1,5 @@
 const darkTheme = {
-  theme: 'dark',
+  currTheme: 'dark',
   colors: {
     body: '#363537',
     text: {

@@ -8,7 +8,9 @@ import MoonSvg from '../../../svg/moon';
 const ThemeToggler: React.FC<{
   onToggle: () => void;
 }> = (props) => {
-  const { currTheme } = useTheme();
+  const {
+    currTheme,
+  } = useTheme();
 
   const svgSunProps = {
     width: '50px',

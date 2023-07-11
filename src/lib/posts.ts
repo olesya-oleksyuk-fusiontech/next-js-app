@@ -19,6 +19,11 @@ export async function getSortedPostsData(postNum = 10) {
   const endDate = new Date('2023-01-10');
   const postDates = getMockDates(postNum, [startDate, endDate]);
   const response = await fetch(`https://dummyjson.com/posts?limit=${postNum}&select=title`);
+
+  if (!response.ok) {
+    throw new Error('Failed to fetch!');
+  }
+
   const { posts }: { posts: Omit<PostInListType, 'date'>[] } = await response.json();
   const postsData = posts.map((post, index) => {
     return {

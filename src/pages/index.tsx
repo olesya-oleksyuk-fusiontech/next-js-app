@@ -1,13 +1,13 @@
 import Head from 'next/head';
 import Link from 'next/link';
 import React from 'react';
-import { dehydrate, QueryClient, useQuery } from 'react-query';
+import { dehydrate, QueryClient } from 'react-query';
 import { formTitleUrlParam, getSortedPostsData } from '../lib/posts';
 import Heading from '../components/Heading';
 import DateNote from '../components/DateNote';
 import Layout, { siteTitle } from '../containers/Layout';
 import { HomePage } from '../components/homePageStyles';
-import type { PostInListType } from '../interfaces';
+import { useFetchPosts } from './useFetchPosts';
 
 export async function getStaticProps() {
   // ensures that data is not shared between different users and requests
@@ -23,20 +23,14 @@ export async function getStaticProps() {
 }
 
 const Home: React.FC<{
-  allPostsData: PostInListType[];
   toggleTheme: () => void;
 }> = (props) => {
   const {
     isSuccess,
-    data: postsData,
+    postsData,
     error,
-  } = useQuery(
-    ['posts'],
-    () => getSortedPostsData(),
-    {
-      staleTime: 10 * (60 * 1000), // refetch every 10 mins
-    },
-  );
+    isLoading,
+  } = useFetchPosts();
 
   const renderPosts = () => {
     if (isSuccess) {
@@ -60,6 +54,14 @@ const Home: React.FC<{
       );
     }
 
+    if (isLoading) {
+      return (
+        <Heading level="h2">
+          Loading...
+        </Heading>
+      );
+    }
+
     if (error) {
       return (
         <>
@@ -69,7 +71,7 @@ const Home: React.FC<{
                   😢
             </span>
           </Heading>
-          <div>{`An error has occurred: ${error}`}</div>
+          <div>{`An error has occurred: ${error.message}`}</div>
         </>
       );
     }

@@ -7,7 +7,7 @@ import Heading from '../components/Heading';
 import DateNote from '../components/DateNote';
 import Layout, { siteTitle } from '../containers/Layout';
 import { HomePage } from '../components/homePageStyles';
-import { useFetchPosts } from './useFetchPosts';
+import { useFetchPosts } from '../hooks/useFetchPosts';
 
 export async function getStaticProps() {
   // ensures that data is not shared between different users and requests

@@ -2,19 +2,19 @@ import { render } from '@testing-library/react';
 import { ThemeProvider } from 'styled-components';
 import { format, parseISO } from 'date-fns';
 
-import Home from './index';
+import Home from '../../src/pages';
 
-import type { ThemeType } from '../styling/theme/default.utils';
-import { createTheme } from '../styling/theme/default.utils';
-import { useFetchPosts } from './useFetchPosts';
-import { getMockDates } from '../lib/posts';
+import type { ThemeType } from '../../src/styling/theme/default.utils';
+import { createTheme } from '../../src/styling/theme/default.utils';
+import { useFetchPosts } from '../../src/hooks/useFetchPosts';
+import { getMockDates } from '../../src/lib/posts';
 
 const mockTheme: ThemeType = createTheme('light');
 const mockToggleTheme = jest.fn();
 
 const mockedFetch = useFetchPosts as jest.Mock<ReturnType<typeof useFetchPosts>>;
 
-jest.mock('./useFetchPosts');
+jest.mock('../../src/hooks/useFetchPosts');
 
 describe('Home Page', () => {
   describe('With data', () => {
